@@ -5,23 +5,22 @@ format: html
 editor: visual
 ---
 
-## Quarto
+## Assignment04
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
-
-## Running Code
-
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
-
+[Dataset](https://maven-datasets.s3.amazonaws.com/World+Economic+Indicators/World+Economic+Indicators.zip)
+#Upload data
 ```{r}
-1 + 1
+library(readxl)
+library(dplyr)
+path <- "/Users/ameenahhabib/Desktop/assignment04/WorldBank.xlsx"
 ```
 
-You can add options to executable code like this
-
 ```{r}
-#| echo: false
-2 * 2
+df <- read_excel(path, sheet = 1) 
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+#Data Visualization #1
+#region and income group (diff color)
+#facet by year and income, group by country name 
+#line graph birth rate by year, group by one country
+#gdp and death rate, group by one country 
