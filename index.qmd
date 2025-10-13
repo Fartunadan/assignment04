@@ -7,21 +7,22 @@ editor: visual
 
 ## Assignment04
 
-[Dataset](https://maven-datasets.s3.amazonaws.com/World+Economic+Indicators/World+Economic+Indicators.zip) #Upload data
+[Dataset](https://maven-datasets.s3.amazonaws.com/World+Economic+Indicators/World+Economic+Indicators.zip)
+
+#Upload data
 
 ```{r}
-library(readxl)
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-path <- "/Users/ameenahhabib/Desktop/assignment04/WorldBank.xlsx"
+library(readxl)
 ```
 
 ```{r}
-df <- read_excel(path, sheet = 1) 
+df <- read_excel("WorldBank.xlsx") 
 ```
 
-#Data Visualization #1 #Rename variables
+# Data Visualization #1: Income Level Based on Region
 
 ```{r}
 df <- df |> 
@@ -47,9 +48,9 @@ ggplot(aes(x = Region, fill = incomegroup)) +
   labs(title = "Income Level Based on Region", subtitle = "Income level is separated into 5 categories", x = "Region", Y = "Number of Countries", fill = "Income Level")
 ```
 
-#Explanation for #1: This first graphs helps to better understand the data. It is a bar graph with each region in the world on the X-axis and the groups of different income levels on the Y-axis. This will help us to understand, generally, which regions have higher levels of income and which regions have lower levels of income. The graph shows regions such as North America and Europe have higher levels of income, wheras the Sub-Saharan Africa region and South Asia have lower levels of income. Notably, the East Asia and Pacific region shows a more even spread of countries across the various income levels. There are similar shares countries in high and low-income economies, and an identical low and high middle-income groups. This makes East Asia & Pacific region a balanced benchmark for cross-country comparisons within the region. This mix lets us examine how factors like GDP per capita relate to outcomes (e.g., life expectancy or population density) without results being skewed by one extreme. While this visualization does not lead to any direct policy recommendations, it sets the basis for which countries to evalaute further to see specific policy information.
+**#Explanation for Data Visualization #1:** This first graphs helps to better understand the data. It is a bar graph with each region in the world on the X-axis and the groups of different income levels on the Y-axis. This will help us to understand, generally, which regions have higher levels of income and which regions have lower levels of income. The graph shows regions such as North America and Europe have higher levels of income, wheras the Sub-Saharan Africa region and South Asia have lower levels of income. Notably, the East Asia and Pacific region shows a more even spread of countries across the various income levels. There are similar shares countries in high and low-income economies, and an identical low and high middle-income groups. This makes East Asia & Pacific region a balanced benchmark for cross-country comparisons within the region. This mix lets us examine how factors like GDP per capita relate to outcomes (e.g., life expectancy or population density) without results being skewed by one extreme. While this visualization does not lead to any direct policy recommendations, it sets the basis for which countries to evalaute further to see specific policy information.
 
-#Data Visualization #2
+# Data Visualization #2: GDP per Capita Over Time
 
 ```{r}
 countries_to_keep <- c("Cambodia", "New Zealand", "Indonesia", "Philippines", "China", "Hong Kong SAR, China", "Thailand", "Malaysia", "Japan", "Singapore")
@@ -64,9 +65,9 @@ df %>%
   labs(title = "GDP per Capita Over Time in Select Countries", subtitle = "Countries selected are all within the East Asian & Pacific region", x = "Year", y = "GDP per Capita (US)")
 ```
 
-#Explanation: Data Visualization #2 Fartun #Evaluating various countries in the East Asian region to see GDP growth over time, noting some countries have much higher GDP growht (more developed) and other countries have lower GDP growth, aligns with our first graph and the even spread of countries across different income groups
+**#Explanation for Data Visualization #2**: Based on the first graph, we took a closer look at the Asia–Pacific region by examining ten countries representing a range of income groups, from high to low. This approach allowed us to better understand the variation in economic development across the region. The GDP per capita trends reveal significant disparities: countries such as Singapore and Hong Kong have experienced remarkable growth, exceeding \$50,000 per capita from 1960 to 2018, while others, including Cambodia and the Philippines, remain below \$5,000. This pattern reflects the development trajectories within East Asia shaped by differing policy choices and historical contexts.
 
-#Data Visualization #3
+# Data Visualization #3: GDP vs Life Expectancy
 
 ```{r}
 df <- df %>%
@@ -86,9 +87,10 @@ ggplot(aes(x = `GDPpercapita`, y = `lifeexpectancy`, color = country)) +
        y = "Life Expectancy (Years)")
 ```
 
-#Explanation: Data Visualization #3 - Fartun #
+**#Explanation for Data Visualization #3**: This scatter plot reveals a strong positive relationship between GDP per capita and life expectancy across the 10 East Asian and Pacific countries from 1998 to 2018. This shows that the greatest life expectancy gains occur at lower income levels. Countries like Cambodia demonstrate dramatic progress from the bottom left of the chart, while high-income economies such as Singapore, Hong Kong, and Japan cluster at the top right with life expectancies exceeding 83 years when GDP per capita is above \$30,000. The upward and rightward trajectory of data points across most countries illustrates the region's remarkable development during this period, with simultaneous improvements in economic prosperity and population life expectancy . However, the flattening curve at higher income levels shows diminishing returns, as additional wealth yields smaller gains in longevity.
 
-#Data Visualization #4
+# Data Visualization #4: Birth Rate by Country
+
 ```{r}
 df <- df %>%
   rename(birth_rate = "Birth rate, crude (per 1,000 people)")
@@ -108,5 +110,4 @@ x = "Income Group",
 y = "Birth Rate (per 1,000 people)")
 ```
 
-#Explanation:Data Visualization #4
-#These boxplots compare birth-rate distributions by income group for our selected countries. Note that of the countries selected, there is at least one country for each income group. High-income countries such as Japan, Hong Kong, Singapore, and New Zealand, show lower medians and tighter spreads of birth rate, while lower- and lower-middle-income countries such as Cambodia, Indonesia, and the Philippines, have higher medians and more variability. The pattern aligns with the demographic transition: birth rates tend to fall as income and education rise. Policy takeaway: higher-fertility countries should plan for things like maternal/child health and schooling capacity whereas low-fertility, high-income countries face aging-population issues—workforce shortages, pension sustainability, and long-term care.
+**#Explanation for Data Visualization #4:** These boxplots compare birth-rate distributions by income group for our selected countries. Note that of the countries selected, there is at least one country for each income group. High-income countries such as Japan, Hong Kong, Singapore, and New Zealand, show lower medians and tighter spreads of birth rate, while lower- and lower-middle-income countries such as Cambodia, Indonesia, and the Philippines, have higher medians and more variability. The pattern aligns with the demographic transition: birth rates tend to fall as income and education rise. Policy takeaway: higher-fertility countries should plan for things like maternal/child health and schooling capacity whereas low-fertility, high-income countries face aging-population issues—workforce shortages, pension sustainability, and long-term care.
