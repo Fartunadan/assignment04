@@ -44,7 +44,15 @@ df |>
   filter(Year == 2015) %>%
 ggplot(aes(x = Region, fill = incomegroup)) +
   geom_bar(position = "dodge") +
-   scale_fill_viridis_d(name = "Income level") +
+   scale_fill_viridis_d(name = "Income level") + 
+annotate(
+    "text",
+    x = 7, y = 27,
+    label = "Highest count here",
+    color = "red",
+    size = 4,
+    fontface = "bold"
+  ) +
   labs(title = "Income Level Based on Region", subtitle = "Income level is separated into 5 categories", x = "Region", Y = "Number of Countries", fill = "Income Level")
 ```
 
